@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MvcMovie.Models
+namespace Top90sHits.Models
 {
-    public class Movie
+    public class TheHits
     {
         public int ID { get; set; }
         public string Title { get; set; }

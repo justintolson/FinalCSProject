@@ -81,7 +81,7 @@ namespace Top90sHits
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=TheHits}/{action=Index}/{id?}");
             });
         }
     }

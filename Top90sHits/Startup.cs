@@ -83,6 +83,8 @@ namespace Top90sHits
                     name: "default",
                     template: "{controller=TheHits}/{action=Index}/{id?}");
             });
+
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }

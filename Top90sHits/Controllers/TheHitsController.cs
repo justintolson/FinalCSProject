@@ -20,9 +20,31 @@ namespace Top90sHits.Controllers
         }
 
         // GET: TheHits
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
-            return View(await _context.TheHits.ToListAsync());
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from m in _context.TheHits
+                                            orderby m.Genre
+                                            select m.Genre;
+
+            var thehits = from m in _context.TheHits
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                thehits = thehits.Where(s => s.Title.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(movieGenre))
+            {
+                thehits = thehits.Where(x => x.Genre == movieGenre);
+            }
+
+            var TheHitsGenreVM = new TheHitsGenreViewModel();
+            TheHitsGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+            TheHitsGenreVM.songs = await thehits.ToListAsync();
+
+            return View(TheHitsGenreVM);
         }
 
         // GET: TheHits/Details/5
